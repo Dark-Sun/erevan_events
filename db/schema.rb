@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828155536) do
+ActiveRecord::Schema.define(version: 20150902121113) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -50,12 +50,20 @@ ActiveRecord::Schema.define(version: 20150828155536) do
     t.integer  "venue_id"
     t.string   "name"
     t.datetime "time"
+    t.text     "description"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.integer  "facebook_id",        limit: 8
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  create_table "venue_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "venues", force: :cascade do |t|
@@ -64,13 +72,19 @@ ActiveRecord::Schema.define(version: 20150828155536) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
     t.string   "fb_page"
+    t.text     "description"
     t.string   "address"
     t.string   "phone"
-    t.float    "longtitude"
+    t.float    "longitude"
     t.float    "latitude"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "venue_category_id"
   end
 
 end

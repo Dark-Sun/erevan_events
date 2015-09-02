@@ -6,8 +6,9 @@ class Event < ActiveRecord::Base
                        
   validates_attachment_content_type :photo, content_type: ["image/jpg", "image/jpeg", "image/png"]
 
-  validates :name, presence: true, length: { maximum: 30 }
+  # validates :name, presence: true, length: { maximum: 30 }
 
+  validates :facebook_id, uniqueness: true
   just_define_datetime_picker :time
   validates :time, :presence => true
 

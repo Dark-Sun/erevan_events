@@ -4,7 +4,7 @@
 	var map;
 	var markers = [];
 
-	var longtitude = $('#venue_longtitude');
+	var longitude = $('#venue_longitude');
 	var latitude   = $('#venue_latitude');
 	var address    = $('#venue_address')
 
@@ -14,11 +14,12 @@
 	    zoom: 11
 	  });
 
-	  if(longtitude.val() && latitude.val()) {
+	  if(longitude.val() && latitude.val()) {
 	  	    var marker = new google.maps.Marker({
-	  	    	position: {lat: parseFloat(latitude.val()), lng: parseFloat(longtitude.val()) }, 
+	  	    	position: {lat: parseFloat(latitude.val()), lng: parseFloat(longitude.val()) }, 
 	  	    	map: map}
 	  	    );
+	  	    markers.push(marker);
 	  	    map.setZoom(15);
 			map.panTo(marker.position);
 	  }
@@ -32,7 +33,7 @@
 		markers.push(marker);
 		console.log(event.latLng);
 		latitude.val(event.latLng.lat());
-		longtitude.val(event.latLng.lng());
+		longitude.val(event.latLng.lng());
 
 		$.get("https://maps.googleapis.com/maps/api/geocode/json?latlng=" + event.latLng.lat() + "," + event.latLng.lng() + "&key=AIzaSyA4M50hc2OdtZZ9YLTdxJYmKQYjK-JnoqE", function( data ) {
 			console.log(data["results"]["0"]["formatted_address"])
