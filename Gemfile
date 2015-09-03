@@ -20,7 +20,7 @@ gem 'paperclip', '~> 4.3'
 gem 'koala'
 
 gem 'sidekiq'
-gem 'sidetiq'
+#gem 'sidetiq'
 
 group :development, :test do
   gem 'sqlite3'

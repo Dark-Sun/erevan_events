@@ -1,9 +1,9 @@
 class GetVenuesEventsWorker 
 
   include Sidekiq::Worker
-  include Sidetiq::Schedulable
+  # include Sidetiq::Schedulable
 
-  recurrence { minutely(5) } #{ hourly(1) }
+  # recurrence { minutely(10) } #{ hourly(1) }
 
   def perform
     Venue.connection
