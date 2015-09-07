@@ -6,8 +6,8 @@ development:
 production:
   adapter: postgresql
   database: ervevan_events
-  username: erevandb
-  password: erevan1111
+  username: androdb
+  password: andro1111
   host: localhost
   encoding: UTF8
   pool: 5
