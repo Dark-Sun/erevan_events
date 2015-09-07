@@ -5,7 +5,7 @@ development:
 
 production:
   adapter: postgresql
-  database: ervevan_events
+  database: erevan_events
   username: androdb
   password: andro1111
   host: localhost
