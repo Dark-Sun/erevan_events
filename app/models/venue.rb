@@ -5,9 +5,8 @@ class Venue < ActiveRecord::Base
     belongs_to :venue_category
     
     before_save proc { get_from_facebook if @from_facebook == "true" }
-    after_commit     { GetVenueEventsWorker.perform_async(self.id) }
-    
-    has_many :events
+    after_commit { GetVenueEventsWorker.perform_async(self.id) }
+    has_many :events, dependent: :destroy
 
     has_attached_file :photo, 
                        styles: { medium: "300x300", thumb: "150x150" }
@@ -40,8 +39,11 @@ class Venue < ActiveRecord::Base
         # p '+++++++++++++++++++++++++++++++++++'
         # @page = @graph.get_object('salonarmenian?fields=name,website,phone,location,about,description,cover,category,place_topics')
         # @page = @graph.get_object("#{self.fb_page.to_s}?fields=name,website,phone,location,about,description,cover,category,place_topics")
-#
-        @page = @graph.get_object("#{self.fb_page.split(/.*facebook.com/)[1]}?fields=name,website,phone,location,about,description,cover,category,place_topics") # gets fb page name (string after *facebook.com)
+# => 
+        # page_name = self.fb_page.split(/.*facebook.com/)[1].squish
+        page_name = self.fb_page.split('/')[-1].squish
+        id = @graph.get_object("#{page_name}")["id"]
+        @page = @graph.get_object("#{id}?fields=name,website,phone,location,about,description,cover,category,place_topics") # gets fb page name (string after *facebook.com)
         if VenueCategory.where(name: @page['category']).any?
           self.venue_category = VenueCategory.where(name: @page['category']).first
         else
@@ -67,16 +69,20 @@ class Venue < ActiveRecord::Base
         # p @venue_picture = @graph.get_object('salonarmenian/picture?type=large&redirect=false')
         # p '+++++++++++++++++++++++++++++++++++'
         p '+++++++'
-
+        p @page
         self.name        = @page['name']
         self.description = @page['description']
-        self.address     = @page['location']['street']  + ', ' + @page['location']['city'] + ', ' +
-                           @page['location']['country'] if @page['location']
+        self.address     = "#{@page['location']['street']}, #{@page['location']['city']}, #{@page['location']['country']}" if @page['location']
         self.phone       = @page['phone']
         self.longitude   = @page['location']['longitude'] if @page['location']
         self.latitude    = @page['location']['latitude'] if @page['location']
         self.cover       = URI.parse(@page['cover']['source']) if @page['cover']
-        self.photo       = URI.parse(@graph.get_object('salonarmenian/picture?type=large&redirect=false')['data']['url'])
+
+        photo_json       = @graph.get_object("#{id}/picture?type=large")
+        p '++++ picture'
+        p photo_json
+        # self.photo       = URI.parse(photo_json['data']['url']) if photo_json['data']
+        self.photo = URI.parse("https://graph.facebook.com/#{id}/picture?width=9999")
       rescue Exception => e 
         errors.add(:fb_page, "Importing data from #{self.fb_page} page was not completed successfully. #{e.message}")
       end
