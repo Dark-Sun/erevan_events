@@ -17,8 +17,6 @@ class VenuePhoto < ActiveRecord::Base
     photos.each do |photo_urls|
       sorted = photo_urls['images'].sort_by { |photo| photo['width'] }
       next if exists?(photo_url: sorted.last['source'])
-      p "------------"
-      p sorted
       create(venue: venue, photo_url:  sorted.last['source'], thumb_url:  sorted.first['source'])
     end
 

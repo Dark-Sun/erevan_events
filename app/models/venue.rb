@@ -54,8 +54,8 @@ class Venue < ActiveRecord::Base
         self.cover       = URI.parse(@page['cover']['source']) if @page['cover']
         self.photo       = URI.parse("https://graph.facebook.com/#{id}/picture?width=9999")
 
-      # rescue Exception => e 
-      #   errors.add(:fb_page, "Importing data from #{self.fb_page} page was not completed successfully. #{e.message}")
+      rescue Exception => e 
+        errors.add(:fb_page, "Importing data from #{self.fb_page} page was not completed successfully. #{e.message}")
       end
 
     end
