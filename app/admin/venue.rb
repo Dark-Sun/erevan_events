@@ -95,6 +95,9 @@ ActiveAdmin.register Venue do
       row :cover do
         image_tag v.cover.url(:medium) if v.cover.file?
       end
+      row "Photos" do |venue|
+        link_to("Photos", admin_venue_venue_photos_path(venue))
+      end
     end
   end
 

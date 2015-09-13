@@ -6,7 +6,7 @@ end
 
 json.venues do
 	json.array!(@venues) do |venue|
-		json.extract! venue, :id, :name, :fb_page, :phone, :address, :longitude, :latitude, :original_photo_url, :medium_photo_url, :thumb_photo_url
+		json.extract! venue, :id, :name, :fb_page, :phone, :address, :description, :longitude, :latitude, :original_photo_url, :medium_photo_url, :thumb_photo_url
 		
 		json.venue_category_id do
 	    	json.extract! venue.venue_category, :id
@@ -24,3 +24,12 @@ json.events do
 	end
 end
 
+json.venue_photos do
+	json.array!(@venue_photos) do |photo|
+		json.extract! photo, :id, :photo_url, :thumb_url
+
+		json.venue_id do
+			json.extract! photo.venue, :id
+		end
+	end
+end

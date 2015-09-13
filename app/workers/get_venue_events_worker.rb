@@ -8,7 +8,11 @@ class GetVenueEventsWorker
     @oauth = Koala::Facebook::OAuth.new '1629797193971618', '09f53232d9bfdf5e8e7afa2769fc4ecc'
     @graph = Koala::Facebook::API.new @oauth.get_app_access_token
 
-    @events = @graph.get_object("#{venue.fb_page.split(/.*facebook.com/)[1]}/events?&q=a&limit=100&since=now&until=next year&fields=cover,name,description,start_time")
+    page_name = venue.fb_page.split('/')[-1].squish
+    id = @graph.get_object("#{page_name}")["id"]
+
+    @events = @graph.get_object("#{id}/events?&q=a&limit=100&since=now&until=next year&fields=cover,name,description,start_time")
+    # @events = @graph.get_object("#{id}/events")
     @events.each do |f_event|
       event             = Event.where(facebook_id: f_event['id']).first if Event.exists?(facebook_id: f_event['id'])
       event           ||= Event.new
