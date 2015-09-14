@@ -2,9 +2,11 @@ class Api::V1::UsersController < ApplicationController
 
   respond_to :json
 
+   skip_before_action :verify_authenticity_token
+
   def create
     @user = User.create(user_params)
-    render json: @User.to_json
+    p render json: @user.to_json
   end
 
   def index
@@ -12,8 +14,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user)
-          .permit(:email, :phone, :name)
+    params.permit(:email, :phone, :name)
   end
 
 end
