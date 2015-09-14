@@ -2,7 +2,7 @@ class Api::V1::UsersController < ApplicationController
 
   respond_to :json
 
-   skip_before_action :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def create
     @user = User.create(user_params)
@@ -11,10 +11,18 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     @user = User.find_by_email(params[:email])
+    auth = User.authenticate(email: login_params[:email], password: login_params[:password])
+    render json: auth, except: [:encrypted_password, :salt]
   end
+
+  private
 
   def user_params
     params.permit(:email, :phone, :name)
+  end
+
+  def login_params
+    params.permit(:email, :password)
   end
 
 end
