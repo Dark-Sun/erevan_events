@@ -1,6 +1,6 @@
 json.venue_categories do 
 	json.array! @venue_categories do |venue_category|
-		json.extract! venue_category, :id, :name
+		json.extract! venue_category, :id, :name, :original_image_url, :thumb_image_url
 	end
 end
 
