@@ -25,7 +25,7 @@ gem 'sidekiq'
 gem 'sqlite3'
 
 gem 'bcrypt-ruby', :require => 'bcrypt' 
-
+gem 'gcm'
 
 group :development, :test do
   gem 'byebug'

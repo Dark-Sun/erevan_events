@@ -1,0 +1,15 @@
+<%= form_tag(admin_message_send_message_path, method: :put) do %>
+	<%= label_tag "User Category: " %>
+	<%= select_tag :user_category, options_from_collection_for_select(UserCategory.all, "id", "name"), :include_blank => 'All' %>
+    
+    <br/>
+    <br/>
+
+    <%= label_tag "Message: " %>
+    <%= text_area_tag :message %>
+
+    <br/>
+    <br/>
+
+    <%= submit_tag "Send" %>
+  <% end %>
