@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150921130055) do
 
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(version: 20150921130055) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "password"
   end
 
   create_table "user_user_categories", force: :cascade do |t|
