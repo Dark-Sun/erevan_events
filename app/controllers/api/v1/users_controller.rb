@@ -10,7 +10,7 @@ class Api::V1::UsersController < ApplicationController
     p user_categories_params
     p "--------"
     @user = User.create(user_params)
-
+      p  @user.errors
     if user_categories_params.any?
       user_categories_params.each do |v|
         UserUserCategory.create(user_id: @user.id, user_category_id: v[1].to_i)
@@ -29,7 +29,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit!#(:email, :phone, :name, :password, :gcm_id, :user, user_categories_attributes: [:id] )
+    params.permit(:email, :phone, :name, :password, :gcm_id)
   end
 
   def user_categories_params
