@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(version: 20150921130055) do
     t.string   "salt"
     t.string   "password"
     t.string   "gcm_id"
-    t.string   "password"
   end
 
   create_table "venue_categories", force: :cascade do |t|

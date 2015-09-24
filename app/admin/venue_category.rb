@@ -20,7 +20,7 @@ ActiveAdmin.register VenueCategory do
     column :id
     column :name
     column do |c|
-      image_tag c.image.url(:thumb) if c.image.present?
+      image_tag c.image.url(:original) if c.image.present?
     end
     actions
   end
