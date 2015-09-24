@@ -86,12 +86,20 @@ ActiveRecord::Schema.define(version: 20150921130055) do
     t.datetime "updated_at",         null: false
     t.string   "encrypted_password"
     t.string   "salt"
+    t.string   "password"
     t.string   "gcm_id"
     t.string   "password"
   end
 
-# Could not dump table "venue_categories" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "venue_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
 
   create_table "venue_photos", force: :cascade do |t|
     t.integer  "venue_id"

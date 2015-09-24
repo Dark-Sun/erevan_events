@@ -7,6 +7,7 @@ class Api::V1::VenueCategoriesController < ApplicationController
     @venues           = Venue.all
     @events           = Event.all
     @venue_photos     = VenuePhoto.all
+    @user_categories  = UserCategory.all
   end
 
 end

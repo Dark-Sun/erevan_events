@@ -33,3 +33,9 @@ json.venue_photos do
 		end
 	end
 end
+
+json.user_categories do
+	json.array!(@user_categories) do |category|
+		json.extract! category, :id, :name
+	end
+end

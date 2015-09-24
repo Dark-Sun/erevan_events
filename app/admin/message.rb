@@ -6,7 +6,7 @@ ActiveAdmin.register_page 'Message' do
       redirect_to :back, notice: "Message sent"
     else
       category = UserCategory.find(params[:user_category])
-      category.send_gcm(params[:message])
+      category.send_gcm(params[:message], params[:user_category])
       redirect_to :back, notice: "Message sent"
     end
   end

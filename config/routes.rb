@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :venues
       resources :venue_categories
       resources :users
+      resources :user_categories
     end
   end
 
