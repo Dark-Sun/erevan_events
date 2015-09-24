@@ -8,7 +8,7 @@ class Venue < ActiveRecord::Base
 
     before_save proc { get_from_facebook if @from_facebook == "true" }
     after_commit { GetVenueEventsWorker.perform_async(self.id) }
-    after_commit { VenuePhoto.create_from_facebook(self.id) }
+    after_commit { VenuePhoto.create_from_facebook(self.id) if @from_facebook == "true" }
 
     has_attached_file :photo, 
                        styles: { medium: "300x300", thumb: "150x150" }

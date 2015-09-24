@@ -12,6 +12,6 @@ ActiveAdmin.register_page 'Message' do
   end
 
   content :title => "Messages" do
-    render partial: 'Messages/new'
+    render partial: 'messages/new'
   end
 end
