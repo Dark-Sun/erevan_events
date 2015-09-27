@@ -9,7 +9,7 @@ json.venues do
 		json.extract! venue, :id, :name, :fb_page, :phone, :address, :description, :longitude, :latitude, :original_photo_url, :medium_photo_url, :thumb_photo_url
 		
 		json.venue_category_id do
-	    	json.extract! venue.venue_category, :id
+	    	json.extract! venue.venue_category, :id if venue.venue_category
 	  	end
 	end
 end
@@ -19,7 +19,7 @@ json.events do
 		json.extract! event, :id, :name, :description, :time, :original_photo_url, :medium_photo_url, :thumb_photo_url
 
 		json.venue_id do
-	    	json.extract! event.venue, :id
+	    	json.extract! event.venue, :id if event.venue
 	  	end
 	end
 end
@@ -29,7 +29,7 @@ json.venue_photos do
 		json.extract! photo, :id, :photo_url, :thumb_url
 
 		json.venue_id do
-			json.extract! photo.venue, :id
+			json.extract! photo.venue, :id if photo.venue
 		end
 	end
 end
