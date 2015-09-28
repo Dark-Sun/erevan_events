@@ -134,7 +134,6 @@ ActiveRecord::Schema.define(version: 20150928085634) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "venue_category_id"
-    t.string   "name_arm_string"
     t.string   "name_ru"
     t.string   "name_arm"
     t.text     "description_ru"
