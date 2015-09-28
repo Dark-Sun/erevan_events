@@ -3,11 +3,13 @@ ActiveAdmin.register VenueCategory do
 
   menu priority: 1
 
-  permit_params :name, :image
+  permit_params :name, :name_arm, :name_ru, :image
 
    form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs do
       f.input :name
+      f.input :name_arm
+      f.input :name_ru
       f.input :image, :as => :file, :hint => f.object.image.present? \
               ? image_tag(f.object.image.url(:thumb))
             : content_tag(:span, "no photo yet")
@@ -29,6 +31,8 @@ ActiveAdmin.register VenueCategory do
     attributes_table do 
       row :id
       row :name
+      row :name_arm
+      row :name_ru
       row :image do 
         image_tag c.image.url(:original) if c.image.present?
       end

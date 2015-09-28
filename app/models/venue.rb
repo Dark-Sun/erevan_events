@@ -45,14 +45,18 @@ class Venue < ActiveRecord::Base
         self.venue_category   = VenueCategory.where(name: @page['category']).first
         self.venue_category ||= VenueCategory.create(name: @page['category'])
        
-        self.name        = @page['name']
-        self.description = @page['description']
-        self.address     = "#{@page['location']['street']}, #{@page['location']['city']}, #{@page['location']['country']}" if @page['location']
-        self.phone       = @page['phone']
-        self.longitude   = @page['location']['longitude'] if @page['location']
-        self.latitude    = @page['location']['latitude'] if @page['location']
-        self.cover       = URI.parse(@page['cover']['source']) if @page['cover']
-        self.photo       = URI.parse("https://graph.facebook.com/#{id}/picture?width=9999")
+        self.name            = @page['name']
+        self.name_arm        = @page['name']
+        self.name_ru         = @page['name']
+        self.description     = @page['description']
+        self.description_arm = @page['description']
+        self.description_ru  = @page['description']
+        self.address         = "#{@page['location']['street']}, #{@page['location']['city']}, #{@page['location']['country']}" if @page['location']
+        self.phone           = @page['phone']
+        self.longitude       = @page['location']['longitude'] if @page['location']
+        self.latitude        = @page['location']['latitude'] if @page['location']
+        self.cover           = URI.parse(@page['cover']['source']) if @page['cover']
+        self.photo           = URI.parse("https://graph.facebook.com/#{id}/picture?width=9999")
 
       rescue Exception => e 
         errors.add(:fb_page, "Importing data from #{self.fb_page} page was not completed successfully. #{e.message}")

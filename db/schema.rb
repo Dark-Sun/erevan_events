@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921130055) do
+ActiveRecord::Schema.define(version: 20150928083647) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -58,6 +58,10 @@ ActiveRecord::Schema.define(version: 20150921130055) do
     t.integer  "facebook_id",        limit: 8
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "name_ru"
+    t.string   "name_arm"
+    t.string   "description_ru"
+    t.string   "description_arm"
   end
 
   create_table "gcm_ids", force: :cascade do |t|
@@ -98,6 +102,8 @@ ActiveRecord::Schema.define(version: 20150921130055) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "name_ru"
+    t.string   "name_arm"
   end
 
   create_table "venue_photos", force: :cascade do |t|
@@ -127,6 +133,11 @@ ActiveRecord::Schema.define(version: 20150921130055) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "venue_category_id"
+    t.string   "name_arm_string"
+    t.string   "name_ru"
+    t.string   "name_arm"
+    t.text     "description_ru"
+    t.text     "description_arm"
   end
 
 end

@@ -4,7 +4,9 @@ ActiveAdmin.register Venue do
 
   config.filters = false
 
-  permit_params :name, :fb_page, :address, :phone, :longitude, :latitude, :photo, :from_facebook, :description, :cover, :venue_category_id
+  permit_params :name, :name_arm, :name_ru, :fb_page, :address, :phone, :longitude, :latitude, 
+                :photo, :from_facebook, :description, :description_arm, :description_ru, :cover, 
+                :venue_category_id
 
   collection_action :new_from_facebook, method: :get do
     session[:new_venue_from_facebook] = true
@@ -38,8 +40,12 @@ ActiveAdmin.register Venue do
     else
       f.inputs do
         f.input :name
+        f.input :name_arm
+        f.input :name_ru
         f.input :venue_category
         f.input :description, as: :text
+        f.input :description_arm, :as => :text
+        f.input :description_ru, :as => :text
         f.input :fb_page
         f.input :phone
         f.input :longitude, as: :hidden
@@ -77,8 +83,12 @@ ActiveAdmin.register Venue do
   show title: :name do |v|
     attributes_table do
       row :name
+      row :name_arm
+      row :name_ru
       row :venue_category
       row :description
+      row :description_arm
+      row :description_ru
       row :fb_page
       row :phone
       row :address
