@@ -1,12 +1,24 @@
 <%= form_tag(admin_message_send_message_path, method: :put) do %>
-	<%= label_tag "User Category: " %>
+	<%= label_tag "User Category: ", nil, style: 'width: 150px; display: inline-block;'  %>
 	<%= select_tag :user_category, options_from_collection_for_select(UserCategory.all, "id", "name"), :include_blank => 'All' %>
     
     <br/>
     <br/>
 
-    <%= label_tag "Message: " %>
+    <%= label_tag "Message: ", nil, style: 'width: 150px; display: inline-block;' %>
     <%= text_area_tag :message %>
+
+    <br/>
+    <br/>
+
+     <%= label_tag "Message in armenian: ", nil, style: 'width: 150px; display: inline-block;'  %>
+    <%= text_area_tag :message_arm %>
+
+    <br/>
+    <br/>
+
+     <%= label_tag "Message in russian: ", nil, style: 'width: 150px; display: inline-block;' %>
+    <%= text_area_tag :message_ru %>
 
     <br/>
     <br/>
