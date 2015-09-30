@@ -37,6 +37,6 @@ end
 
 json.user_categories do
 	json.array!(@user_categories) do |category|
-		json.extract! category, :id, :name
+		json.extract! category, :id, :name, :name_ru, :name_arm
 	end
 end
