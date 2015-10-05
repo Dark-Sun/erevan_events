@@ -18,6 +18,13 @@ class UserCategory < ActiveRecord::Base
     end
   end
 
+  def self.send_apns_to_all(message, message_arm: message_arm, message_ru: message_ru)
+    User.all.each do |user|
+      next if user.apns_token.nil?
+      APNS.send_notification(user.apns_token, alert: message, sound: 'default')
+    end
+  end
+
   def send_gcm(message, message_arm: message_arm, message_ru: message_ru, category: category)
     gcm = GCM.new("AIzaSyCChwudE2ZPtMvDaeCpaKSXsiZnvQh_6uc")
     self.users.each do |user|
@@ -28,4 +35,12 @@ class UserCategory < ActiveRecord::Base
       response = gcm.send(registration_ids, options)
     end
   end
+
+  def send_apns(message, message_arm: message_arm, message_ru: message_ru, category: category)
+    self.users.each do |user|
+      next if user.apns_token.nil?
+      APNS.send_notification(user.apns_token, alert: message, sound: 'default')
+    end
+  end
+
 end

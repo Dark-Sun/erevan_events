@@ -26,6 +26,7 @@ gem 'sqlite3'
 
 gem 'bcrypt-ruby', :require => 'bcrypt' 
 gem 'gcm'
+gem 'apns'
 
 group :development, :test do
   gem 'byebug'
