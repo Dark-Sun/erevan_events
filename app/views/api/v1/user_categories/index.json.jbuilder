@@ -1,4 +1,4 @@
 
 	json.array!(@user_categories) do |category|
-		json.extract! category, :id, :name, :name_ru, :name_arm
+		json.extract! category, :id, :name, :name_arm, :name_ru
 	end

@@ -1,6 +1,9 @@
 ActiveAdmin.register_page 'Message' do
 
   page_action :send_message, method: :put do
+    p "=============================================="
+    p params[:id]
+    p "=============================================="
     if params[:user_category] == ""
       UserCategory.send_gcm_to_all(params[:message], 
                                    message_arm: params[:message_arm], 
