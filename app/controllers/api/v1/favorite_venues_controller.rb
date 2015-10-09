@@ -11,16 +11,16 @@ class Api::V1::FavoriteVenuesController < ApplicationController
   end
 
   def update
-    @favorite_event = FavoriteEvent.find(favorite_event_params[:id]).destroy
+    @favorite_venue = FavoriteVenue.find(favorite_venues_params[:id]).destroy
   
-    render :json => "{'id':" + @favorite_event.id.to_s + ", 'event_id':{'id':" + @favorite_event.event_id.to_s + "}}"
+    render :json => "{'id':" + @favorite_venue.id.to_s + ", 'venue_id':{'id':" + @favorite_venue.venue_id.to_s + "}}"
   end
 
   def show
-    @favorite_events = User.find(params[:id]).favorite_events
+    @favorite_venues = User.find(params[:id]).favorite_venues
     result = "["
-    @favorite_events.each do |i|
-      result = result + "{'id':" + i.id.to_s + ", 'event_id':{'id':" + i.event_id.to_s + "}},"
+    @favorite_venues.each do |i|
+      result = result + "{'id':" + i.id.to_s + ", 'venue_id':{'id':" + i.venue_id.to_s + "}},"
     end
     result = result  + "]"
     render :json =>  result
