@@ -20,6 +20,12 @@ class User < ActiveRecord::Base
   has_many :user_categories, through: :user_user_categories
   accepts_nested_attributes_for :user_categories
 
+  has_many :favorite_venues, inverse_of: :user
+  has_many :venues, through: :favorite_venues
+
+  has_many :favorite_events, inverse_of: :user
+  has_many :events, through: :favorite_events
+
   def password=(password)
     self.salt               = BCrypt::Engine.generate_salt
     self.encrypted_password = BCrypt::Engine.hash_secret(password, salt)

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
       resources :venue_categories
       resources :users
       resources :user_categories
+      resources :favorite_events
+      resources :favorite_venues
     end
   end
 

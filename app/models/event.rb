@@ -1,6 +1,9 @@
 class Event < ActiveRecord::Base
   belongs_to :venue
 
+  has_many :favorite_events
+  has_many :users, through: :favorite_events
+
   has_attached_file :photo, 
                        styles: { medium: "300x300#", thumb: "150x150#" }
                        

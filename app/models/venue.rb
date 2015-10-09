@@ -6,6 +6,9 @@ class Venue < ActiveRecord::Base
     has_many   :venue_photos, dependent: :destroy
     has_many   :events,       dependent: :destroy
 
+    has_many :favorite_venues
+    has_many :users, through: :favorite_venues
+
     before_save proc { get_from_facebook if @from_facebook == "true" }
     after_commit { GetVenueEventsWorker.perform_async(self.id) }
     after_commit { VenuePhoto.create_from_facebook(self.id) if @from_facebook == "true" }
