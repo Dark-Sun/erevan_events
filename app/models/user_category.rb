@@ -7,7 +7,9 @@ class UserCategory < ActiveRecord::Base
   has_many :user_user_categories
   has_many :users, through: :user_user_categories
 
-  def initialize
+  after_initialize :incriment_unique_id
+
+  def incriment_unique_id
     @@unique_id += 1
   end
 

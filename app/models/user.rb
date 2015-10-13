@@ -10,8 +10,7 @@ class User < ActiveRecord::Base
 
   validates :name,     presence: true
   # validates :password, presence: true
-
-  # has_many :gcm_ids
+  before_save :password_set?
 
   # accepts_nested_attributes_for :gcm_ids
 
@@ -30,6 +29,15 @@ class User < ActiveRecord::Base
     self.salt               = BCrypt::Engine.generate_salt
     self.encrypted_password = BCrypt::Engine.hash_secret(password, salt)
   end
+
+
+  def password_set?
+    self.encrypted_password ? true : false
+  end
+
+  # def password
+  #   encrypted_password
+  # end
 
   def self.authenticate(email: email, password: password)
     p "authenticate"
