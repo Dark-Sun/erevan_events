@@ -1,4 +1,6 @@
 class VenueCategory < ActiveRecord::Base
+  
+  acts_as_paranoid
 
   has_many :venues
 
@@ -13,6 +15,10 @@ class VenueCategory < ActiveRecord::Base
 
   def thumb_image_url
     image.url(:thumb)
+  end
+
+  def deleted
+    deleted_at ? true : false
   end
 
 end

@@ -28,6 +28,9 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 gem 'gcm'
 gem 'apns'
 
+gem "paranoia", "~> 2.0"
+
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'

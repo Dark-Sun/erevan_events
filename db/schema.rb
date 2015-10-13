@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009133926) do
+ActiveRecord::Schema.define(version: 20151013153600) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -62,7 +62,10 @@ ActiveRecord::Schema.define(version: 20151009133926) do
     t.string   "name_arm"
     t.string   "description_ru"
     t.string   "description_arm"
+    t.datetime "deleted_at"
   end
+
+  add_index "events", ["deleted_at"], name: "index_events_on_deleted_at"
 
   create_table "favorite_events", force: :cascade do |t|
     t.integer  "user_id"
@@ -122,7 +125,10 @@ ActiveRecord::Schema.define(version: 20151009133926) do
     t.string   "name_ru"
     t.string   "name_arm"
     t.integer  "position"
+    t.datetime "deleted_at"
   end
+
+  add_index "venue_categories", ["deleted_at"], name: "index_venue_categories_on_deleted_at"
 
   create_table "venue_photos", force: :cascade do |t|
     t.integer  "venue_id"
@@ -156,6 +162,9 @@ ActiveRecord::Schema.define(version: 20151009133926) do
     t.string   "name_arm"
     t.text     "description_ru"
     t.text     "description_arm"
+    t.datetime "deleted_at"
   end
+
+  add_index "venues", ["deleted_at"], name: "index_venues_on_deleted_at"
 
 end

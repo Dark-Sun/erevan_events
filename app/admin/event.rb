@@ -29,7 +29,7 @@ ActiveAdmin.register Event do
     column :id
     column :name
     column :venue
-    column :time_armenian
+    column :time
     column do |e|
       image_tag e.photo.url(:thumb)
     end

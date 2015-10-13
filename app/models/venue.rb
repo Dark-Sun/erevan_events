@@ -2,6 +2,8 @@ class Venue < ActiveRecord::Base
 
     attr_accessor :from_facebook
 
+    acts_as_paranoid
+    
     belongs_to :venue_category
     has_many   :venue_photos, dependent: :destroy
     has_many   :events,       dependent: :destroy
@@ -23,6 +25,10 @@ class Venue < ActiveRecord::Base
 
     validates :fb_page, uniqueness: true
     # validates :name, presence: true, length: { maximum: 30 }
+
+    def deleted
+        deleted_at ? true : false
+    end
 
     def original_photo_url
       photo.url(:original)

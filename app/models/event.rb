@@ -1,4 +1,7 @@
 class Event < ActiveRecord::Base
+  
+  acts_as_paranoid
+  
   belongs_to :venue
 
   has_many :favorite_events
@@ -15,6 +18,10 @@ class Event < ActiveRecord::Base
   just_define_datetime_picker :time
   validates :time, :presence => true
 
+  def deleted
+    deleted_at ? true : false
+  end
+  
   def original_photo_url
     photo.url(:original)
   end
@@ -25,17 +32,6 @@ class Event < ActiveRecord::Base
 
   def thumb_photo_url
     photo.url(:thumb)
-  end
-
-  # def time=(time_yerevan)
-    # offset = Time.now.in_time_zone("Yerevan").utc_offset # UTC+4
-    # time_utc = time_yerevan - offset # yerevan to utc
-    # write_attribute(:time, time_utc)
-  # end
-
-  def time_armenian
-    self.time
-    # self.time.in_time_zone("Yerevan").to_s# + Time.now.in_time_zone("Yerevan").time_zone.name
   end
 
 end
