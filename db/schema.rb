@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(version: 20151009133926) do
 
   create_table "user_categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "name_ru"
     t.string   "name_arm"
   end
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 20151009133926) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "venue_category_id"
+    t.string   "name_arm_string"
     t.string   "name_ru"
     t.string   "name_arm"
     t.text     "description_ru"

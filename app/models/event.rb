@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
 
   # validates :name, presence: true, length: { maximum: 30 }
 
-  validates :facebook_id, uniqueness: true
+  validates :facebook_id, uniqueness: true, allow_blank: true
   just_define_datetime_picker :time
   validates :time, :presence => true
 
@@ -25,6 +25,17 @@ class Event < ActiveRecord::Base
 
   def thumb_photo_url
     photo.url(:thumb)
+  end
+
+  # def time=(time_yerevan)
+    # offset = Time.now.in_time_zone("Yerevan").utc_offset # UTC+4
+    # time_utc = time_yerevan - offset # yerevan to utc
+    # write_attribute(:time, time_utc)
+  # end
+
+  def time_armenian
+    self.time
+    # self.time.in_time_zone("Yerevan").to_s# + Time.now.in_time_zone("Yerevan").time_zone.name
   end
 
 end

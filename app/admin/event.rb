@@ -15,6 +15,7 @@ ActiveAdmin.register Event do
       f.input :description, :as => :text
       f.input :description_arm, :as => :text
       f.input :description_ru, :as => :text
+      li { label "Please provide time in Yerevan time zone" }
       f.input :time, :as => :just_datetime_picker
       f.input :photo, :as => :file, :hint => f.object.photo.present? \
               ? image_tag(f.object.photo.url(:medium))
@@ -28,7 +29,7 @@ ActiveAdmin.register Event do
     column :id
     column :name
     column :venue
-    column :time
+    column :time_armenian
     column do |e|
       image_tag e.photo.url(:thumb)
     end
