@@ -13,10 +13,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :venues
       resources :venue_categories
-      resources :users
+      resources :users 
       resources :user_categories
       resources :favorite_events
       resources :favorite_venues
+
+      put 'user_log_out' => "users#log_out"
     end
   end
 

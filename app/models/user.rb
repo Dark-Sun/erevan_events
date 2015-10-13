@@ -40,10 +40,8 @@ class User < ActiveRecord::Base
   # end
 
   def self.authenticate(email: email, password: password)
-    p "authenticate"
     user = User.find_by_email(email)
     return false unless user
-    p "email ok"
     (user.encrypted_password == BCrypt::Engine.hash_secret(password, user.salt)) ? user : false
   end
   
@@ -52,6 +50,18 @@ class User < ActiveRecord::Base
     registration_ids = [self.gcm_id]
     options = {data: {score: "123"}, collapse_key: "updated_score"}
     response = gcm.send(registration_ids, options)
+  end
+
+  def log_in
+    self.update_attributes!(logged_in: true)
+  end
+
+  def log_out
+    self.update_attributes!(logged_in: false)
+  end
+
+  def logged_in?
+    logged_in
   end
 
 end

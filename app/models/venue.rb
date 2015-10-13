@@ -23,7 +23,7 @@ class Venue < ActiveRecord::Base
     validates_attachment_content_type :photo, content_type: ["image/jpg", "image/jpeg", "image/png"]
     validates_attachment_content_type :cover, content_type: ["image/jpg", "image/jpeg", "image/png"]
 
-    validates :fb_page, uniqueness: true
+    # validates :fb_page, uniqueness: true
     # validates :name, presence: true, length: { maximum: 30 }
 
     def deleted
