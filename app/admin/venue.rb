@@ -35,6 +35,7 @@ ActiveAdmin.register Venue do
       session[:new_venue_from_facebook] = false
       f.inputs do
         f.input :from_facebook, as: :hidden, :input_html => { :value => "true" }
+        f.input :venue_category, include_blank: false
         f.input :fb_page, placeholder: 'https://www.facebook.com/salonarmenian'
       end
     else

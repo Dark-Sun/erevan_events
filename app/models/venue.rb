@@ -51,8 +51,8 @@ class Venue < ActiveRecord::Base
         id        = @graph.get_object("#{page_name}")["id"]
         @page     = @graph.get_object("#{id}?fields=name,website,phone,location,about,description,cover,category,place_topics") # gets fb page name (string after *facebook.com)
 
-        self.venue_category   = VenueCategory.where(name: @page['category']).first
-        self.venue_category ||= VenueCategory.create(name: @page['category'])
+        # self.venue_category   = VenueCategory.where(name: @page['category']).first
+        # self.venue_category ||= VenueCategory.create(name: @page['category'])
        
         self.name            = @page['name']
         self.name_arm        = @page['name']
