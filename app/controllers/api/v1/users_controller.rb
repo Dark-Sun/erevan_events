@@ -51,9 +51,9 @@ class Api::V1::UsersController < ApplicationController
     auth = User.authenticate(email: login_params[:email], password: login_params[:password])
     if auth
       auth.log_out
-      render json: true
+      render :json => {}
     else
-      render json: false
+      render :json => {}
     end
   end
 

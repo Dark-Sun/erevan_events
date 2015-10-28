@@ -34,7 +34,7 @@ class UserCategory < ActiveRecord::Base
 
   def self.send_apns_to_all(message, message_arm: message_arm, message_ru: message_ru)
     User.all.each do |user|
-      next if user.apns_token.nil?
+      next if (user.apns_token.nil? || !user.logged_in)
       APNS.send_notification(user.apns_token, alert: message, sound: 'default')
     end
   end
@@ -53,7 +53,7 @@ class UserCategory < ActiveRecord::Base
 
   def send_apns(message, message_arm: message_arm, message_ru: message_ru, category: category)
     self.users.each do |user|
-      next if user.apns_token.nil?
+      next if (user.apns_token.nil? || !user.logged_in)
       APNS.send_notification(user.apns_token, alert: message, sound: 'default')
     end
   end
