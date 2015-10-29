@@ -16,6 +16,7 @@ class UserCategory < ActiveRecord::Base
   def self.get_unique_id
     p "=============================================="
     p @@unique_id
+    @@unique_id ||= 0
     p "=============================================="
     @@unique_id
   end
@@ -25,7 +26,7 @@ class UserCategory < ActiveRecord::Base
     gcm = GCM.new("AIzaSyCChwudE2ZPtMvDaeCpaKSXsiZnvQh_6uc")
     User.all.each do |user|
       registration_ids = [user.gcm_id]
-      options = { data: {id: self.get_unique_id, category: "all", message: "#{message}", message_arm: "#{message_arm}", 
+      options = { data: {id: UserCategory.get_unique_id, category: "all", message: "#{message}", message_arm: "#{message_arm}", 
                   message_ru: "#{message_ru}"}, collapse_key: "updated_score" }
       p "sending #{options}"    
       response = gcm.send(registration_ids, options)
@@ -40,11 +41,11 @@ class UserCategory < ActiveRecord::Base
   end
 
   def send_gcm(message, message_arm: message_arm, message_ru: message_ru, category: category)
-      @@unique_id += 1
+    @@unique_id += 1
     gcm = GCM.new("AIzaSyCChwudE2ZPtMvDaeCpaKSXsiZnvQh_6uc")
     self.users.each do |user|
       registration_ids = [user.gcm_id]
-      options = { data: {id: self.get_unique_id, category: "all", message: "#{message}", message_arm: "#{message_arm}", 
+      options = { data: {id: UserCategory.get_unique_id, category: "all", message: "#{message}", message_arm: "#{message_arm}", 
                   message_ru: "#{message_ru}"}, collapse_key: "updated_score" }
       p "sending #{options}"    
       response = gcm.send(registration_ids, options)

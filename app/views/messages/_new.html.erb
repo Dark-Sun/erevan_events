@@ -1,6 +1,16 @@
 <%= form_tag(admin_message_send_message_path, method: :put) do %>
-	<%= label_tag "User Category: ", nil, style: 'width: 150px; display: inline-block;'  %>
-	<%= select_tag :user_category, options_from_collection_for_select(UserCategory.all, "id", "name"), :include_blank => 'All' %>
+	<%= label_tag "User Categories: ", nil, style: 'width: 150px; display: inline-block;'  %>
+    </br>
+    <%= check_box_tag '', nil, false, style: "margin-left:50px; text-align:right; display: inline-block;", class: "user_category_all" %>
+    <%= label_tag "All", nil, style: "width: 120px; text-align:left; display: inline-block; font-weight:bold;", size: 50 %>
+    <br>
+    <% UserCategory.all.each do |category| %>
+    <%= check_box_tag 'categories[]', category.id, false, style: "margin-left:50px; text-align:right; display: inline-block;", class: "user_category"  %>
+    <%= label_tag category.name, nil, style: "width: 120px; text-align:left; display: inline-block;", size: 50%>
+        
+        </br>
+    <% end %>
+	<%#= select_tag :user_category, options_from_collection_for_select(UserCategory.all, "id", "name"), :include_blank => 'All' %>
     
     <br/>
     <br/>
