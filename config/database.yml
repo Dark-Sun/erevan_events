@@ -7,8 +7,8 @@ development:
 production:
   adapter: postgresql
   database: erevan_events
-  username: androdb
-  password: andro1111
+  username: rails
+  password: dAgZvKDtGA
   host: localhost
   encoding: UTF8
   pool: 5
