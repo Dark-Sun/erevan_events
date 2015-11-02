@@ -1,0 +1,1 @@
+working_directory("var/www/erevan_events/current")
