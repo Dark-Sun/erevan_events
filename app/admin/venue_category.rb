@@ -5,8 +5,8 @@ ActiveAdmin.register VenueCategory do
 
   permit_params :name, :name_arm, :name_ru, :image, :position
 
-  scope "All",     :all
-  scope "Deleted", :deleted
+  # scope "All",     :all
+  # scope "Deleted", :deleted
 
    form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs do
