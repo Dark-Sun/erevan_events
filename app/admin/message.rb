@@ -10,10 +10,18 @@ ActiveAdmin.register_page 'Message' do
       user_ids << user_usercategory.user.id 
     end
 
+    counter = Counter.first
+
+    if counter.nil?
+      counter = Counter.new
+      counter.counter = 0
+      counter.save
+    end  
+
     user_ids.uniq.each do |user_id|
       user = User.find(user_id)
       next unless user
-      user.send_gcm(params[:message], 
+      user.send_gcm(params[:message], counter.counter,
                         message_arm: params[:message_arm], 
                         message_ru:  params[:message_ru],
                         category:    params[:user_category])
@@ -23,6 +31,8 @@ ActiveAdmin.register_page 'Message' do
                         category:    params[:user_category])
     end
 
+    counter.counter = counter.counter + 1
+    counter.save
 
     redirect_to :back, notice: "Message sent"
   end

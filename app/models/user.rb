@@ -2,9 +2,6 @@ require 'gcm'
 
 class User < ActiveRecord::Base
 
-  @@unique_id = 0
-  after_initialize :incriment_unique_id
-
   attr_accessor :password
 
   validates :email, presence: true, 
@@ -67,23 +64,12 @@ class User < ActiveRecord::Base
     logged_in
   end
 
-  def incriment_unique_id
-    @@unique_id += 1
-  end
-
-  def self.get_unique_id
-    p "=============================================="
-    p @@unique_id
-    @@unique_id ||= 0
-    p "=============================================="
-    @@unique_id
-  end
-
-  def send_gcm(message, message_arm: message_arm, message_ru: message_ru, category: category)
-    @@unique_id += 1
+  def send_gcm(message, id, message_arm: message_arm, message_ru: message_ru, category: category)
+    p "#{category}"
+    p "#{id}"
     gcm = GCM.new("AIzaSyCChwudE2ZPtMvDaeCpaKSXsiZnvQh_6uc")
     registration_ids = [self.gcm_id]
-    options = { data: {id: User.get_unique_id, category: "all", message: "#{message}", message_arm: "#{message_arm}", 
+    options = { data: {id: "#{id}", category: "#{category}", message: "#{message}", message_arm: "#{message_arm}", 
                 message_ru: "#{message_ru}"}, collapse_key: "updated_score" }
     p "sending #{options}"    
     response = gcm.send(registration_ids, options)
