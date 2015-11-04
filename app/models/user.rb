@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   def send_gcm(notification)
     gcm = GCM.new("AIzaSyCChwudE2ZPtMvDaeCpaKSXsiZnvQh_6uc")
     registration_ids = [self.gcm_id]
-    options = { data: {id:    "#{self.id}", 
+    options = { data: {id:    "#{notification.id}", 
                 category:     "all", 
                 message:      "#{notification.message}", 
                 message_arm:  "#{notification.message_armenian}", 
