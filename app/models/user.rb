@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
     @@unique_id
   end
 
-  def send_gcm(message, message_arm: message_arm, message_ru: message_ru, category: category)
+  def send_gcm(notification)
     @@unique_id += 1
     gcm = GCM.new("AIzaSyCChwudE2ZPtMvDaeCpaKSXsiZnvQh_6uc")
     registration_ids = [self.gcm_id]

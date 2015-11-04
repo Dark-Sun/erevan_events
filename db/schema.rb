@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013184138) do
+ActiveRecord::Schema.define(version: 20151104114935) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -86,6 +86,23 @@ ActiveRecord::Schema.define(version: 20151013184138) do
     t.integer "user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string   "message"
+    t.string   "message_armenian"
+    t.string   "message_russian"
+    t.datetime "fire_time"
+    t.integer  "event_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "message"
+    t.string   "message_armenian"
+    t.string   "message_russian"
+    t.datetime "fire_time"
+    t.integer  "event_id"
+    t.boolean  "sent",             default: false
+  end
+
   create_table "user_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -112,6 +129,11 @@ ActiveRecord::Schema.define(version: 20151013184138) do
     t.string   "gcm_id"
     t.string   "apns_token"
     t.boolean  "logged_in"
+  end
+
+  create_table "users_notifications", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "notification_id"
   end
 
   create_table "venue_categories", force: :cascade do |t|
