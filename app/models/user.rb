@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   has_many :favorite_events, inverse_of: :user
   has_many :events, through: :favorite_events
 
+  has_and_belongs_to_many :notifications, join_table: :users_notifications
+
   def password=(password)
     self.salt               = BCrypt::Engine.generate_salt
     self.encrypted_password = BCrypt::Engine.hash_secret(password, salt)
@@ -64,21 +66,26 @@ class User < ActiveRecord::Base
     logged_in
   end
 
-
-  def send_gcm(message, id, message_arm: message_arm, message_ru: message_ru, category: category)
-    p "#{category}"
-    p "#{id}"
+  def send_gcm(notification)
     gcm = GCM.new("AIzaSyCChwudE2ZPtMvDaeCpaKSXsiZnvQh_6uc")
     registration_ids = [self.gcm_id]
-    options = { data: {id: "#{id}", category: "#{category}", message: "#{message}", message_arm: "#{message_arm}", 
-                message_ru: "#{message_ru}"}, collapse_key: "updated_score" }
-    p "sending #{options}"    
+    options = { data: {id:    "#{self.id}", 
+                category:     "all", 
+                message:      "#{notification.message}", 
+                message_arm:  "#{notification.message_armenian}", 
+                message_ru:   "#{notification.message_russian}"}, 
+                collapse_key: "updated_score" 
+              }
     response = gcm.send(registration_ids, options)
   end
 
-  def send_apns(message, message_arm: message_arm, message_ru: message_ru, category: category)
+  def send_apns(notification)
     return if (self.apns_token.nil? || !self.logged_in)
-    APNS.send_notification(self.apns_token, alert: message, sound: 'default')
+    APNS.send_notification(self.apns_token, alert: notification.message_armenian, sound: 'default')
+  end
+
+  def sent_notifications
+    self.notifications.sent.from_last_week
   end
 
 end

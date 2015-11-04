@@ -3,7 +3,7 @@ class GetVenuesEventsWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  recurrence { hourly(1) } #{ minutely(1) } 
+  # recurrence { hourly(1) } #{ minutely(1) } 
 
   def perform
     p "update!"

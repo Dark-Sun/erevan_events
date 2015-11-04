@@ -18,7 +18,7 @@ class Api::V1::UsersController < ApplicationController
       end
     end
 
-    p render json: @user.to_json
+    render json: @user.to_json(include: :sent_notifications)
   end
 
   def update
@@ -36,14 +36,14 @@ class Api::V1::UsersController < ApplicationController
       end
     end
 
-    p render json: @user.to_json
+    render json: @user.to_json(include: :sent_notifications)
   end
 
   def index
     @user = User.find_by_email(params[:email])
     auth = User.authenticate(email: login_params[:email], password: login_params[:password])
     auth.log_in
-    render json: auth, except: [:encrypted_password, :salt]
+    # render json: @user.to_json(include: :sent_notifications), except: [:encrypted_password, :salt]
   end
 
   def log_out
