@@ -73,7 +73,9 @@ class User < ActiveRecord::Base
                 category:     "all", 
                 message:      "#{notification.message}", 
                 message_arm:  "#{notification.message_armenian}", 
-                message_ru:   "#{notification.message_russian}"}, 
+                message_ru:   "#{notification.message_russian}"},
+                event_id:   "#{notification.event_id}"}, 
+                venue_id:   "#{notification.venue_id}"},  
                 collapse_key: "updated_score" 
               }
     response = gcm.send(registration_ids, options)
