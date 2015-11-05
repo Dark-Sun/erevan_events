@@ -4,7 +4,7 @@ ActiveAdmin.register Notification do
 
   actions :all, except: [:edit, :destroy]
 
-  permit_params :event_id, :message, :message_armenian, :message_russian,
+  permit_params :event_id, :venue_id, :message, :message_armenian, :message_russian,
   :fire_time_date, :fire_time_time_hour, :fire_time_time_minute, :categories
 
   controller do
@@ -36,7 +36,16 @@ ActiveAdmin.register Notification do
   form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs do
       render partial: 'notifications/new_categories'
-      f.input :event
+      br
+      br
+      tabs do
+        tab 'Venue' do
+         f.input :venue
+       end
+        tab 'Event' do
+          f.input :event, as: :select, collection: Event.upcoming.map { |e| [e.name, e.id] } 
+        end
+      end
       f.input :message
       f.input :message_armenian
       f.input :message_russian

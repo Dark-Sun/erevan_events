@@ -16,6 +16,15 @@ $(document).ready(function() {
 	    	});
 	    }
 	});
+
+	$('#notification_venue_id').change(function () {
+		$('#notification_event_id').val('');
+	});
+	
+	$('#notification_event_id').change(function () {
+		$('#notification_venue_id').val('');
+	});
+	
 });
 
 $(document).load(function() {
