@@ -6,7 +6,7 @@
 
 json.notifications do
 	json.array!(@user.sent_notifications) do |notification|
-		json.extract! notification, :id, :message, :message_armenian, :message_russian, :fire_time, :sent
+		json.extract! notification, :id, :message, :message_armenian, :message_russian, :fire_time, :sent, :created_at
 		
 		json.venue_id do
 	    	json.extract! notification.venue, :id if notification.venue_id
