@@ -75,7 +75,8 @@ class User < ActiveRecord::Base
                 message_arm:  "#{notification.message_armenian}", 
                 message_ru:   "#{notification.message_russian}",
                 event_id:   "#{notification.event_id}", 
-                venue_id:   "#{notification.venue_id}"},  
+                venue_id:   "#{notification.venue_id}"},
+                time_to_live: "60",  
                 collapse_key: "updated_score" 
               }
     response = gcm.send(registration_ids, options)
