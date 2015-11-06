@@ -2,7 +2,7 @@ ActiveAdmin.register Notification do
 
   config.filters = false
 
-  actions :all, except: [:edit, :destroy]
+  # actions :all, except: [:edit, :destroy]
 
   permit_params :event_id, :venue_id, :message, :message_armenian, :message_russian,
   :fire_time_date, :fire_time_time_hour, :fire_time_time_minute, :categories
