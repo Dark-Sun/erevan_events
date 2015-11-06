@@ -70,14 +70,14 @@ class User < ActiveRecord::Base
     gcm = GCM.new("AIzaSyCChwudE2ZPtMvDaeCpaKSXsiZnvQh_6uc")
     registration_ids = [self.gcm_id]
     options = { data: {id:    "#{notification.id}", 
-                category:     "all", 
                 message:      "#{notification.message}", 
                 message_arm:  "#{notification.message_armenian}", 
                 message_ru:   "#{notification.message_russian}",
                 event_id:   "#{notification.event_id}", 
                 venue_id:   "#{notification.venue_id}"},
-                time_to_live: "120",  
-                collapse_key: "updated_score" 
+                collapse_key: "update_scope",
+                time_to_live: 43200,
+                delay_while_idle: true
               }
     response = gcm.send(registration_ids, options)
   end
