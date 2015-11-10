@@ -4,13 +4,15 @@ class User < ActiveRecord::Base
 
   attr_accessor :password
 
-  validates :email, presence: true, 
-            # format: /\A\S+@.+\.\S+\z/,
-            uniqueness: { case_sensitive: false }
+  validates :email, :allow_blank => true,:uniqueness => { :case_sensitive => false } 
 
-  validates :name,     presence: true
+  # validates :email, presence: true, 
+  #           # format: /\A\S+@.+\.\S+\z/,
+  #           uniqueness: { case_sensitive: false }
+
+ # validates :name,     presence: true
   # validates :password, presence: true
-  before_save :password_set?
+  #before_save :password_set?
 
   # accepts_nested_attributes_for :gcm_ids
 
