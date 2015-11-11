@@ -92,14 +92,6 @@ ActiveRecord::Schema.define(version: 20151105133102) do
     t.integer "user_id"
   end
 
-  create_table "messages", force: :cascade do |t|
-    t.string   "message"
-    t.string   "message_armenian"
-    t.string   "message_russian"
-    t.datetime "fire_time"
-    t.integer  "event_id"
-  end
-
   create_table "notifications", force: :cascade do |t|
     t.string   "message"
     t.string   "message_armenian"

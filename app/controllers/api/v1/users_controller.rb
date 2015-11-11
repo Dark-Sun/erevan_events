@@ -8,16 +8,28 @@ class Api::V1::UsersController < ApplicationController
     p "-------"
     p user_params
     p "--------"
-    p user_categories_params
-    @user = User.create(user_params)
+    
+    if user_params[:email].blank?
+       @user = User.create(user_params)
+       categories = UserCategory.all
+       categories.each do |c|
+         UserUserCategory.create(user_id: @user.id, user_category_id: c.id)
+       end
+    else 
+      @user = User.find(user_params[:id])
+      @user.update_attributes(user_params)
+    end
+
     @user.log_in
-      p  @user.errors
-    if user_categories_params
+    p  @user.errors
+  
+    if !params[:user_categories_attributes].blank?
+      UserUserCategory.where(user_id: user_params[:id]).destroy_all
       user_categories_params.each do |v|
         UserUserCategory.create(user_id: @user.id, user_category_id: v[1].to_i)
       end
     end
-
+  
     render json: @user.to_json(include: :sent_notifications)
   end
 
@@ -64,7 +76,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_categories_params
-    params.require(:user_categories_attributes).permit!
+      params.require(:user_categories_attributes).permit!
   end
 
   def login_params
