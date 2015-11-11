@@ -84,7 +84,12 @@ class User < ActiveRecord::Base
 
   def send_apns(notification)
     return if (self.apns_token.nil? || !self.logged_in)
-    APNS.send_notification(self.apns_token, alert: notification.message_armenian, sound: 'default')
+    APNS.send_notification(self.apns_token, alert: notification.message_armenian, badge: 0, sound: 'default', 
+      other: {
+         "id"       => notification.id,
+         "venue_id" =>  notification.venue_id,
+         "event_id" =>  notification.event_id
+      } )
   end
 
   def sent_notifications

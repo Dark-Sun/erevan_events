@@ -18,7 +18,7 @@ class Event < ActiveRecord::Base
   just_define_datetime_picker :time
   validates :time, :presence => true
 
-  scope :upcoming, -> { where("time > ?", 1.day.ago) }
+  scope :upcoming, -> { where("time > ?", Time.now.beginning_of_day) }
 
   def deleted
     deleted_at ? true : false

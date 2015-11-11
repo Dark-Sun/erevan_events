@@ -27,6 +27,7 @@ gem 'sqlite3'
 gem 'bcrypt-ruby', :require => 'bcrypt' 
 gem 'gcm'
 gem 'apns'
+gem 'grocer'
 
 gem "paranoia", "~> 2.0"
 
