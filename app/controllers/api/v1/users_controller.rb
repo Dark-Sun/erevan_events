@@ -17,6 +17,7 @@ class Api::V1::UsersController < ApplicationController
        end
     else 
       @user = User.find(user_params[:id])
+
       @user.update_attributes(user_params)
     end
 
@@ -39,10 +40,13 @@ class Api::V1::UsersController < ApplicationController
     p user_categories_params
     p "--------"
     @user = User.find(user_params[:id])
-    @user.log_in
+    @user.log_in if @user && @user.email.nil? && @user.password.nil?
       p  @user.errors
     UserUserCategory.where(user_id: user_params[:id]).destroy_all
-    if user_categories_params.any?
+    if @user.apns_token
+        User.where(apns_token: @user.apns_token).each { |u| u.log_out }
+    end
+    if user_categories_params
       user_categories_params.each do |v|
         UserUserCategory.create(user_id: @user.id, user_category_id: v[1].to_i)
       end
@@ -53,8 +57,16 @@ class Api::V1::UsersController < ApplicationController
 
   def index
     @user = User.find_by_email(params[:email])
-    auth = User.authenticate(email: login_params[:email], password: login_params[:password])
-    auth.log_in
+    if @user.apns_token
+        User.where(apns_token: @user.apns_token).each { |u| u.log_out }
+    end
+    
+    if @user && @user.email.nil? && @user.password.nil?
+      render json:  @user.to_json(include: :sent_notifications)
+    else
+      auth = User.authenticate(email: login_params[:email], password: login_params[:password])
+      auth.log_in
+    end
     # render json: @user.to_json(include: :sent_notifications), except: [:encrypted_password, :salt]
   end
 
@@ -72,11 +84,11 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:id, :email, :phone, :name, :password, :gcm_id, :apns_token)
+    params.permit(:id, :email, :phone, :name, :password, :gcm_id, :apns_token, :user_categories_attributes)
   end
 
   def user_categories_params
-      params.require(:user_categories_attributes).permit!
+      params.require(:user_categories_attributes).permit! if params[:user_categories_attributes]
   end
 
   def login_params
