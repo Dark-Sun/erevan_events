@@ -3,7 +3,7 @@ class GetVenuesEventsWorker
   include Sidekiq::Worker
   include Sidetiq::Schedulable
 
-  # recurrence { hourly(1) } #{ minutely(1) } 
+  recurrence { hourly(1) } #{ minutely(1) } 
 
   def perform
     p "update!"
@@ -11,7 +11,7 @@ class GetVenuesEventsWorker
     Venue.all.each do |venue|
       p "#{venue.id} - #{venue.name}"
       GetVenueEventsWorker.perform_async(venue.id)
-      sleep 30
+      # sleep 30
     end
   end
 
