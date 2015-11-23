@@ -11,7 +11,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'unicorn'
 gem 'capistrano-rails', group: :development
 
-gem 'devise'
+gem 'devise', '~>3.5.2'
 gem 'activeadmin', github: 'activeadmin'
 gem 'just-datetime-picker'
 
@@ -20,7 +20,8 @@ gem 'paperclip', '~> 4.3'
 gem 'koala'
 
 gem 'sidekiq'
-gem 'sidetiq'
+gem 'sidekiq-cron'
+gem 'sinatra', :require => nil
 
 gem 'sqlite3'
 

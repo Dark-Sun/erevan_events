@@ -30,8 +30,8 @@ class GetVenueEventsWorker
         event.save if event.name_changed? || event.description_changed?
         # logger.debug event.errors
       end
-    rescue URI::InvalidURIError
-      p "invalid uri"
+    rescue Exception
+      p "opps...exception"
     end
 
   end

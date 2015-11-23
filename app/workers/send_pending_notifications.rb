@@ -1,9 +1,6 @@
 class SendPendingNotifications 
 
   include Sidekiq::Worker
-  include Sidetiq::Schedulable
-
-  recurrence { minutely(1) } 
 
   def perform
     p "perform pushes"
@@ -16,5 +13,7 @@ class SendPendingNotifications
     end
 
   end
+
+  # Sidekiq::Cron::Job.create(name: 'Send notifications - every 1min', cron: '*/1 * * * *', class: 'SendPendingNotifications')
 
 end

@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
 
@@ -5,9 +7,13 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
   
+  # namespace :admin do
+    authenticate :admin_user do
+      mount Sidekiq::Web => '/sidekiq'
+    end
+  # end  
+
   root to: "admin/venues#index"
-
-
 
   namespace :api do
     namespace :v1 do
