@@ -14,12 +14,6 @@ class Api::V1::FavoriteEventsController < ApplicationController
 
   def show
     @favorite_events = User.find(params[:id]).favorite_events
-    # result = "["
-    # @favorite_events.each do |i|
-    #   result = result + "{'id':" + i.id.to_s + ", 'event_id':{'id':" + i.event_id.to_s + "}},"
-    # end
-    # result = result + "]"
-    # render :json =>  result
   end
 
 

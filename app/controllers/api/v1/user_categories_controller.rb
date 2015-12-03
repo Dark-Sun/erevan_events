@@ -8,8 +8,6 @@ class Api::V1::UserCategoriesController < ApplicationController
 
   def show
     @user_categories = User.find(params[:id]).user_categories
-
-    p render json: @user_categories.to_json
   end
 
 
