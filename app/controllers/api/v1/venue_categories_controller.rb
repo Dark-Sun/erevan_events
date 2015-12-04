@@ -2,6 +2,8 @@ class Api::V1::VenueCategoriesController < ApplicationController
 
   respond_to :json
 
+  caches_page :index, expires_in: 15.minutes
+
   def index
     @venue_categories = VenueCategory.with_deleted
     @venues           = Venue.with_deleted

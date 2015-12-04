@@ -31,6 +31,7 @@ gem 'apns'
 gem 'grocer'
 
 gem "paranoia", "~> 2.0"
+gem 'actionpack-page_caching'
 
 
 group :development, :test do
