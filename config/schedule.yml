@@ -1,9 +1,9 @@
 my_first_job:
   cron: "*/1 * * * *"
   class: "SendPendingNotifications"
-  queue: notifications
+  queue: default
 
 second_job:
   cron: "*/15 * * * *"
   class: "GetVenuesEventsWorker"
-  queue: get_events
+  queue: default
